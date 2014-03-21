@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 # Copyright 2011-2013, Travis CI Development Team <contact@travis-ci.org>
+# Copyright 2014, Opensensors Development Team <team@opensensors.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
