@@ -11,6 +11,6 @@ recipe            "git", "Installs git"
   supports os
 end
 
-%w{ runit apt }.each do |cb|
+%w{ apt }.each do |cb|
   depends cb
 end
