@@ -9,5 +9,3 @@ recipe            "build-essential", "Installs C compiler and build tools on Lin
 %w{ fedora redhat centos ubuntu debian }.each do |os|
   supports os
 end
-
-depends           "cmake"
