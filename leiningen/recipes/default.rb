@@ -20,13 +20,13 @@
 
 include_recipe "java"
 
-jar_dir  = File.join(node.travis_build_environment.home, ".lein")
+jar_dir  = File.join("home", "vagrant", ".lein")
 jar_file = File.join(jar_dir, "self-installs", "#{jar_dir}/leiningen-#{node[:leiningen][:version]}-standalone.jar")
 
 [jar_dir, File.join(jar_dir, "self-installs")].each do |dir|
   directory dir do
-    owner     node.travis_build_environment.user
-    group     node.travis_build_environment.group
+    owner     "vagrant"
+    group     "vagrant"
     recursive true
 
     action    :create
