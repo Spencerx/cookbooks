@@ -1,4 +1,4 @@
-node[:opensensors] = {
+default[:opensensors] = {
   :user => "vagrant",
   :home => "/home/vagrant"
 }
