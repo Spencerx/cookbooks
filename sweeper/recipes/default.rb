@@ -2,6 +2,7 @@
 # Cookbook Name:: sweeper
 # Recipe:: default
 # Copyright 2012-2013, Travis CI Development Team <contact@travis-ci.org>
+# Copyright 2014, OpenSensors Development Team <team@opensensors.io>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
