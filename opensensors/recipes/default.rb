@@ -11,6 +11,7 @@ git "/home/vagrant/git/jig" do
   action     :sync
 
   user       node.opensensors.user
+  group      node.opensensors.user
 end
 
 git "/home/vagrant/git/azondi" do
@@ -18,4 +19,5 @@ git "/home/vagrant/git/azondi" do
   action     :sync
 
   user       node.opensensors.user
+  group      node.opensensors.user
 end
