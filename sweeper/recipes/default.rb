@@ -28,14 +28,6 @@ execute "apt-get -y clean autoremove" do
   action :run
 end
 
-execute "rm -rf /tmp/php*" do
-  action :run
-end
-
-execute "rm -rf /var/tmp/php*" do
-  action :run
-end
-
 execute "rm -rf /home/vagrant/*.iso" do
   action :run
 end
