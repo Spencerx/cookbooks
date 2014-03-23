@@ -49,7 +49,7 @@ script "run lein self-install" do
 
   cwd        "vagrant"
   user       "vagrant"
-  environment({ "HOME" => "/home/vagrant", "USER" => "vagrant", "LEIN_JVM_OPTS" => "-Xms16m -Xmx256m" })
+  environment({ "HOME" => "/home/vagrant", "USER" => "vagrant", "HTTP_CLIENT" => "curl --insecure -f -L -o", "LEIN_JVM_OPTS" => "-Xms16m -Xmx256m" })
 
   not_if "ls #{jar_file}"
 
