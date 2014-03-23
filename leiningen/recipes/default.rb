@@ -20,13 +20,13 @@
 
 include_recipe "java"
 
-jar_dir  = File.join("home", "vagrant", ".lein")
-jar_file = File.join(jar_dir, "self-installs", "#{jar_dir}/leiningen-#{node[:leiningen][:version]}-standalone.jar")
+jar_dir  = File.join(node.leiningen.home, ".lein")
+jar_file = File.join(jar_dir, "self-installs", "#{jar_dir}/leiningen-#{node.leiningen.version}-standalone.jar")
 
 [jar_dir, File.join(jar_dir, "self-installs")].each do |dir|
   directory dir do
-    owner     "vagrant"
-    group     "vagrant"
+    owner     node.leiningen.user
+    group     node.leiningen.user
     recursive true
 
     action    :create
@@ -35,7 +35,7 @@ end
 
 ruby_block "lein-system-wide" do
   block do
-    rc = Chef::Util::FileEdit.new("/usr/local/bin/lein")
+    rc = Chef::Util::FileEdit.new(node.leiningen.bin_path)
     rc.search_file_replace_line(/^LEIN_JAR=.*/, "LEIN_JAR=#{jar_file}")
     rc.write_file
   end
@@ -45,24 +45,28 @@ end
 script "run lein self-install" do
   interpreter "bash"
   # version forces leiningen to download core plugins like lein-newnew
-  code        "/usr/local/bin/lein self-install && /usr/local/bin/lein version"
+  code        "#{node.leiningen.bin_path} self-install && #{node.leiningen.bin_path} version"
 
-  cwd        "vagrant"
-  user       "vagrant"
-  environment({ "HOME" => "/home/vagrant", "USER" => "vagrant", "HTTP_CLIENT" => "curl --insecure -f -L -o", "LEIN_JVM_OPTS" => "-Xms16m -Xmx256m" })
+  cwd        node.leiningen.home
+  user       node.leiningen.user
+  environment({
+      "HOME" => node.leiningen.home,
+      "USER" => node.leiningen.user,
+      "LEIN_JVM_OPTS" => "-Xms16m -Xmx256m"
+    })
 
   not_if "ls #{jar_file}"
 
   action :nothing
 end
 
-remote_file "/usr/local/bin/lein" do
-  source   node[:leiningen][:install_script]
+remote_file node.leiningen.bin_path do
+  source   node.leiningen.install_script
   mode     0755
 
 
   notifies :create, resources(:ruby_block => "lein-system-wide"), :immediately
   notifies :run,    resources(:script     => "run lein self-install")
 
-  not_if "grep -qx 'export LEIN_VERSION=\"#{node[:leiningen][:version]}\"' /usr/local/bin/lein"
+  not_if "grep -qx 'export LEIN_VERSION=\"#{node.leiningen.version}\"' #{node.leiningen.bin_path}"
 end
