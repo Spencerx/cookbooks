@@ -32,18 +32,16 @@ node.fetch(:private_ssh_keys, {}).each do |user, bag|
     action :create
   end
 
-  template File.join(ssh_dir, "id_rsa") do
-    source "content.erb"
-    variables(content: item['private_key'])
+  file File.join(ssh_dir, "id_rsa") do
+    content item['private_key']
 
     owner  user_info.uid
     group  user_info.gid || user_info.uid
     mode   "0600"
   end
 
-  template File.join(ssh_dir, "id_rsa.pub") do
-    source "content.erb"
-    variables(content: item['public_key'])
+  file File.join(ssh_dir, "id_rsa.pub") do
+    content item['public_key']
 
     owner  user_info.uid
     group  user_info.gid || user_info.uid
