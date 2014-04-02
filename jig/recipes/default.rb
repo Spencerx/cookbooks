@@ -7,6 +7,11 @@ directory "#{home}/git/" do
   group  node.jig.user
 end
 
+bash "jig.sub.install" do
+  command "cd #{home}/git/jig; lein sub install"
+  action  :nothing
+end
+
 git "#{home}/git/jig" do
   repository node.jig.clone_url
   revision   node.jig.revision
@@ -31,9 +36,4 @@ template "#{home}/.jig/config.edn" do
 
   owner  node.jig.user
   group  node.jig.user
-end
-
-bash "jig.sub.install" do
-  command "cd #{home}/git/jig; lein sub install"
-  action  :nothing
 end
