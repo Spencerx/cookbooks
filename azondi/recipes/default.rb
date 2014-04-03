@@ -18,3 +18,11 @@ end
 if node.jig
   node.default.jig.included_configs << "#{home}/git/azondi/configs/dev/core.edn"
 end
+
+sysctl_param "vm.overcommit_ratio" do
+  value 100
+end
+
+sysctl_param "vm.overcommit_memory" do
+  value 1
+end

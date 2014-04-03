@@ -6,7 +6,7 @@ version           "2.0.0"
 
 supports 'ubuntu', '>= 12.04'
 
-%w{ git leiningen }.each do |cb|
+%w{ git leiningen sysctl }.each do |cb|
   depends cb
 end
 
