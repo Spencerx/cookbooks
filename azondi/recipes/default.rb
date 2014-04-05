@@ -9,6 +9,7 @@ end
 
 git "#{home}/git/azondi" do
   repository node.azondi.clone_url
+  revision   node.azondi.revision
   action     :sync
 
   user       node.azondi.user
